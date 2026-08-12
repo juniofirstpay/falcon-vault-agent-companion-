@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+vault-agent-companion = {editable = true, path = ".", extras = ["dynaconf", "uvicorn"]}
+
+[dev-packages]
+pytest = "*"
+pytest-asyncio = "*"
+cryptography = "*"
+
+[requires]
+python_version = "3.13"

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vault-agent-companion"
+version = "0.1.0"
+description = "App-side companion for the Vault Agent sidecar: hot-reload of rendered secrets files and rotating mTLS certs. Framework-agnostic core + optional adapters."
+requires-python = ">=3.11"
+dependencies = [
+    "watchfiles>=0.21",
+]
+
+[project.optional-dependencies]
+dynaconf = ["dynaconf>=3.2"]
+uvicorn = ["uvicorn>=0.29"]
+test = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "cryptography>=42",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
