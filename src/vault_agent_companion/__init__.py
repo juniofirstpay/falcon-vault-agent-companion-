@@ -13,5 +13,6 @@ from __future__ import annotations
 
 from vault_agent_companion.core import secrets
 from vault_agent_companion.core.tls import CertRotator
+from vault_agent_companion.core.watcher import Watcher
 
-__all__ = ("secrets", "CertRotator")
+__all__ = ("secrets", "CertRotator", "Watcher")
