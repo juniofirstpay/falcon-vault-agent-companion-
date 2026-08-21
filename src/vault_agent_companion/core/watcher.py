@@ -60,6 +60,6 @@ class Watcher:
                 for handler in self._handlers[path]:
                     await _maybe_await(handler())
 
-    def spawn(self, **kwargs: object) -> asyncio.Task:
+    def spawn(self, **kwargs: object) -> "asyncio.Task[None]":
         """Start :meth:`watch` as a background task. Cancel the task to stop watching."""
         return asyncio.ensure_future(self.watch(**kwargs))  # type: ignore[arg-type]
