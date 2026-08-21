@@ -11,7 +11,7 @@ from __future__ import annotations
 import asyncio
 import inspect
 from pathlib import Path
-from typing import Awaitable, Callable, Optional, Union
+from typing import Awaitable, Callable, Iterable, Optional, Tuple, Union
 
 from watchfiles import awatch
 
@@ -23,13 +23,13 @@ async def _maybe_await(result: object) -> None:
         await result
 
 
-def _touches_target(changes: object, target: Path) -> bool:
+def _touches_target(changes: Iterable[Tuple[object, str]], target: Path) -> bool:
     """True if any (Change, path) in a watchfiles batch resolves to ``target``.
 
     Pure so it's testable without the filesystem (fsevents on macOS can replay a
     file's own creation at watcher startup, which makes real-fs negative tests flaky).
     """
-    return any(Path(changed).resolve() == target for _, changed in changes)  # type: ignore[union-attr]
+    return any(Path(changed).resolve() == target for _, changed in changes)
 
 
 async def watch(
@@ -54,6 +54,6 @@ async def watch(
             await _maybe_await(on_change())
 
 
-def spawn(path: Union[str, Path], on_change: OnChange, **kwargs: object) -> asyncio.Task:
+def spawn(path: Union[str, Path], on_change: OnChange, **kwargs: object) -> "asyncio.Task[None]":
     """Start :func:`watch` as a background task. Cancel the task to stop watching."""
     return asyncio.ensure_future(watch(path, on_change, **kwargs))  # type: ignore[arg-type]

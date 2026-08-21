@@ -27,3 +27,10 @@ where = ["src"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.mypy]
+files = ["src/vault_agent_companion"]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+exclude = "(_test\\.py$|test_.*\\.py$|/tests/)"
